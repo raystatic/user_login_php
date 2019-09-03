@@ -19,10 +19,22 @@
 
 			$fullname = $firstname." ".$lastname;
 
-			$sql = "insert into users (name, email, phone, password) values ('$fullname', '$email', '$phonenumber', '$password');";
+			$check_sql = "select * from users where email='$email';";
+			$check_result = mysqli_query($conn,$check_sql);
+			$check_result_num = mysqli_num_rows($check_result);
 
-			$result = mysqli_query($conn,$sql);
+			if($check_result_num>0){
+				echo "User already exist with this email address!";
+			}else{
+				$sql = "insert into users (name, email, phone, password) values ('$fullname', '$email', '$phonenumber', '$password');";
+				$result = mysqli_query($conn,$sql);
 
+				if ($result) {
+					echo "Registration done successfully!!";
+				}else{
+					echo "There was an error in registration! Please try again later.";
+				}
+			}
 		}
 
 	?>
