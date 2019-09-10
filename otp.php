@@ -17,9 +17,10 @@
 				echo $response_otp;
 				echo $_SESSION["otp"];
 				if($response_otp == $_SESSION["otp"]){
-					echo '<script language="javascript">';
-					echo 'alert("OTP Verification Success.. Correct OTP!")';
-					echo '</script>';
+					// echo '<script language="javascript">';
+					// echo 'alert("OTP Verification Success.. Correct OTP!")';
+					// echo '</script>';
+					header("location: raystatic.php");
 				}else{
 					echo '<script language="javascript">';
 					echo 'alert("OTP Verification Failed!.. Wrong OTP!")';
