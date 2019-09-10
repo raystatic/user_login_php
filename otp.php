@@ -1,33 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Otp page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="design.css">
+</head>
+<body>
 
+	<div>
+		<?php
 
-<?php
+			session_start();
 
-$curl = curl_init();
+			if (isset($_POST["submit"])) {
+				$response_otp = $_POST["otp"];
+				echo $response_otp;
+				echo $_SESSION["otp"];
+				if($response_otp == $_SESSION["otp"]){
+					echo '<script language="javascript">';
+					echo 'alert("OTP Verification Success.. Correct OTP!")';
+					echo '</script>';
+				}else{
+					echo '<script language="javascript">';
+					echo 'alert("OTP Verification Failed!.. Wrong OTP!")';
+					echo '</script>';
+				}
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://www.fast2sms.com/dev/bulk?authorization=ZkCIq1fsd0T2Yi7ap9byjnRBLuQXK6cemP4hSAwxW5V3MzGlgre1qBLDzoZxKCbGSWiXfdUYPt9TrluA&sender_id=FSTSMS&language=english&route=qt&numbers=".urlencode('9650124756')."&message=15360&variables=".urlencode('{BB}')."&variables_values=".urlencode('12345')."",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_SSL_VERIFYHOST => 0,
-  CURLOPT_SSL_VERIFYPEER => 0,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "cache-control: no-cache"
-  ),
-));
+			}
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+		?> 		
+	</div>
 
-curl_close($curl);
+	<div class="container">
+		<h1 align="center">OTP Verification</h1>
+		<form action="otp.php" method="post">
+			
+			<div align="center"><input type="text" name="otp" required="true" placeholder="Enter a 5 digit otp sent to the registered mobile number"></div>
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}
+			<div align="center"><input type="submit" name="submit" value="Check OTP" class="otpbutton"></div>
 
-?> 
+		</form>
+	</div>
+
+</body>
+</html>
