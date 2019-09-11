@@ -32,11 +32,14 @@
 					echo '</script>';
 				}else{
 						$otp = rand(pow(10, 4), pow(10, 5)-1);
+						while($row = mysqli_fetch_array($pass_check)){
+                            $phone = $row['phone'];
+                        }
 
 						$curl = curl_init();
 
 						curl_setopt_array($curl, array(
-						  CURLOPT_URL => "https://www.fast2sms.com/dev/bulk?authorization=ZkCIq1fsd0T2Yi7ap9byjnRBLuQXK6cemP4hSAwxW5V3MzGlgre1qBLDzoZxKCbGSWiXfdUYPt9TrluA&sender_id=FSTSMS&language=english&route=qt&numbers=".urlencode('9650124756')."&message=15360&variables=".urlencode('{BB}')."&variables_values=".urlencode($otp)."",
+						  CURLOPT_URL => "https://www.fast2sms.com/dev/bulk?authorization=ZkCIq1fsd0T2Yi7ap9byjnRBLuQXK6cemP4hSAwxW5V3MzGlgre1qBLDzoZxKCbGSWiXfdUYPt9TrluA&sender_id=FSTSMS&language=english&route=qt&numbers=".urlencode($phone)."&message=15360&variables=".urlencode('{BB}')."&variables_values=".urlencode($otp)."",
 						  CURLOPT_RETURNTRANSFER => true,
 						  CURLOPT_ENCODING => "",
 						  CURLOPT_MAXREDIRS => 10,
